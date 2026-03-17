@@ -1,0 +1,176 @@
+/* =========================================================================
+   SafeReadAI — HOW IT WORKS — FLOW STEPS
+   ========================================================================= */
+.flow {
+  position: relative;
+  z-index: 1;
+  padding: var(--s-24) var(--s-8);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-green);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--s-4);
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+.section-label::before {
+  content: '//';
+  color: var(--color-text-3);
+}
+
+.section-title {
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-3xl));
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: var(--s-12);
+  color: var(--color-text-1);
+}
+
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--s-4);
+  position: relative;
+}
+
+.flow-step {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--s-6);
+  position: relative;
+  transition: border-color var(--dur-base) var(--ease-out),
+              transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+
+.flow-step:hover {
+  border-color: rgba(0, 255, 136, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.flow-step-num {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-green);
+  background: var(--color-green-muted);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: var(--s-4);
+}
+
+.flow-step-title {
+  font-weight: 600;
+  font-size: var(--text-base);
+  margin-bottom: var(--s-2);
+  color: var(--color-text-1);
+}
+
+.flow-step-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+  line-height: 1.6;
+}
+
+/* =========================================================================
+   THREAT PREVIEW SECTION
+   ========================================================================= */
+.threat-preview {
+  position: relative;
+  z-index: 1;
+  padding: var(--s-16) var(--s-8);
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-8);
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .threat-preview { grid-template-columns: 1fr; }
+}
+
+.terminal-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.terminal-topbar {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.terminal-dot.red    { background: #ff5f57; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green  { background: #28ca41; }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-3);
+  margin-left: var(--s-2);
+  letter-spacing: 0.05em;
+}
+
+.terminal-body {
+  padding: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.8;
+}
+
+.terminal-line { display: block; }
+.terminal-prompt { color: var(--color-green); }
+.terminal-output { color: var(--color-text-2); }
+.terminal-inject {
+  color: var(--color-red);
+  background: var(--color-red-muted);
+  border: 1px solid rgba(255, 51, 85, 0.2);
+  border-radius: var(--radius-sm);
+  padding: var(--s-2) var(--s-3);
+  margin: var(--s-2) 0;
+  display: block;
+  font-size: var(--text-xs);
+  position: relative;
+}
+
+.inject-badge {
+  position: absolute;
+  top: -10px;
+  right: var(--s-3);
+  font-size: 10px;
+  background: var(--color-red);
+  color: white;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}

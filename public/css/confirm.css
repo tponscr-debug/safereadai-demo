@@ -1,0 +1,90 @@
+/* =========================================================================
+   SafeReadAI — CONFIRM PAGE
+   ========================================================================= */
+.confirm-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-8);
+  position: relative;
+  z-index: 1;
+}
+
+.confirm-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--s-12);
+  max-width: 540px;
+  width: 100%;
+  text-align: center;
+  animation: fade-up 0.5s var(--ease-out) both;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.confirm-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--color-green-muted);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--s-6);
+  font-size: 28px;
+  animation: pulse-border 2s ease-in-out infinite;
+}
+
+.confirm-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s-4);
+}
+
+.confirm-desc {
+  color: var(--color-text-2);
+  line-height: 1.7;
+  margin-bottom: var(--s-8);
+}
+
+.confirm-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  margin-bottom: var(--s-8);
+  text-align: left;
+}
+
+.confirm-steps li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+  background: var(--color-bg);
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.confirm-steps li .step-icon { color: var(--color-green); font-size: 16px; }
+
+.data-deletion-note {
+  background: var(--color-amber-muted);
+  border: 1px solid rgba(255, 170, 0, 0.2);
+  border-radius: var(--radius-md);
+  padding: var(--s-4);
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+  color: var(--color-amber);
+  line-height: 1.6;
+}

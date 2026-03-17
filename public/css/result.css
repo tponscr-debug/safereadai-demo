@@ -1,0 +1,343 @@
+/* =========================================================================
+   SafeReadAI — RESULT PAGE
+   ========================================================================= */
+.result-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 120px var(--s-8) var(--s-16);
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: var(--s-12);
+}
+
+.result-header .alert-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-red);
+  background: var(--color-red-muted);
+  border: 1px solid rgba(255, 51, 85, 0.3);
+  padding: var(--s-1) var(--s-4);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--s-6);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: pulse-red 2s ease-in-out infinite;
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 51, 85, 0); }
+  50% { box-shadow: 0 0 12px 2px rgba(255, 51, 85, 0.2); }
+}
+
+.result-header .alert-badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--color-red);
+  border-radius: 50%;
+  animation: blink 1s step-end infinite;
+}
+
+/* Threat score */
+.threat-score-card {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 51, 85, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--s-6);
+  margin-bottom: var(--s-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-6);
+  flex-wrap: wrap;
+}
+
+.threat-score-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+  margin-bottom: var(--s-2);
+}
+
+.threat-score-value {
+  font-family: var(--font-mono);
+  font-size: var(--text-4xl);
+  font-weight: 700;
+  color: var(--color-red);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.threat-score-value span { font-size: var(--text-lg); color: var(--color-text-3); }
+
+.threat-bar-wrap {
+  flex: 1;
+  min-width: 200px;
+}
+
+.threat-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-3);
+  margin-bottom: var(--s-2);
+}
+
+.threat-bar {
+  height: 8px;
+  background: var(--color-surface-3);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.threat-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--color-amber), var(--color-red));
+  width: 0%;
+  transition: width 1.2s var(--ease-out);
+  box-shadow: 0 0 8px rgba(255, 51, 85, 0.5);
+}
+
+/* Email display */
+.email-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--s-6);
+}
+
+.email-card-header {
+  background: var(--color-surface-2);
+  padding: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.email-card-header-title {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.email-card-body {
+  padding: var(--s-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.9;
+}
+
+.email-meta {
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.email-meta-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  font-size: var(--text-xs);
+  color: var(--color-text-2);
+  margin-bottom: var(--s-1);
+}
+
+.email-meta-row .meta-key { color: var(--color-text-3); }
+
+.injection-highlight {
+  background: var(--color-red-muted);
+  border: 1px solid rgba(255, 51, 85, 0.3);
+  border-radius: var(--radius-sm);
+  padding: var(--s-3) var(--s-4);
+  color: var(--color-red);
+  margin: var(--s-3) 0;
+  position: relative;
+  font-size: var(--text-xs);
+}
+
+.injection-highlight-badge {
+  position: absolute;
+  top: -10px;
+  left: var(--s-3);
+  font-size: 10px;
+  background: var(--color-red);
+  color: white;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Comparison panels */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+  margin-bottom: var(--s-6);
+}
+
+@media (max-width: 640px) {
+  .comparison-grid { grid-template-columns: 1fr; }
+}
+
+.comparison-panel {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.comparison-panel.danger {
+  border: 1px solid rgba(255, 51, 85, 0.3);
+}
+
+.comparison-panel.safe {
+  border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.comparison-panel-header {
+  padding: var(--s-3) var(--s-6);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.comparison-panel.danger .comparison-panel-header {
+  background: var(--color-red-muted);
+  color: var(--color-red);
+  border-bottom: 1px solid rgba(255, 51, 85, 0.2);
+}
+
+.comparison-panel.safe .comparison-panel-header {
+  background: var(--color-green-muted);
+  color: var(--color-green);
+  border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.comparison-panel-body {
+  background: var(--color-surface);
+  padding: var(--s-6);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  font-family: var(--font-mono);
+}
+
+.comparison-panel.danger .comparison-panel-body { color: var(--color-red); }
+.comparison-panel.safe .comparison-panel-body { color: var(--color-green); }
+
+/* SafeReadAI pipeline */
+.pipeline-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--s-6);
+}
+
+.pipeline-card-header {
+  background: var(--color-surface-2);
+  padding: var(--s-4) var(--s-6);
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-green);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.pipeline-steps {
+  padding: var(--s-4) var(--s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.pipeline-step {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: var(--s-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all var(--dur-base) var(--ease-out);
+}
+
+.pipeline-step.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.pipeline-step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.pipeline-step.status-threat .pipeline-step-icon {
+  background: var(--color-red-muted);
+  color: var(--color-red);
+  border: 1px solid rgba(255, 51, 85, 0.2);
+}
+
+.pipeline-step.status-processing .pipeline-step-icon {
+  background: var(--color-amber-muted);
+  color: var(--color-amber);
+  border: 1px solid rgba(255, 170, 0, 0.2);
+}
+
+.pipeline-step.status-safe .pipeline-step-icon {
+  background: var(--color-green-muted);
+  color: var(--color-green);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.pipeline-step-content { flex: 1; }
+
+.pipeline-step-name {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  margin-bottom: 2px;
+  color: var(--color-text-1);
+}
+
+.pipeline-step-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-2);
+  margin-bottom: 4px;
+}
+
+.pipeline-step-detail {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--color-text-3);
+}
+
+.pipeline-step.status-threat .pipeline-step-detail { color: var(--color-red); opacity: 0.7; }
+.pipeline-step.status-safe .pipeline-step-detail { color: var(--color-green); opacity: 0.7; }

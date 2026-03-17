@@ -1,0 +1,119 @@
+/* =========================================================================
+   SafeReadAI — RESULT PAGE: CTA + LOADING STATES
+   ========================================================================= */
+
+/* CTA section */
+.result-cta {
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-surface-2) 100%);
+  border: 1px solid var(--color-border-glow);
+  border-radius: var(--radius-xl);
+  padding: var(--s-12) var(--s-8);
+  text-align: center;
+  margin-top: var(--s-12);
+  box-shadow: 0 0 60px rgba(0, 255, 136, 0.05);
+}
+
+.cta-title {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s-4);
+}
+
+.cta-desc {
+  font-size: var(--text-base);
+  color: var(--color-text-2);
+  margin-bottom: var(--s-8);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: var(--s-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  background: var(--color-green);
+  color: #0a0a0f;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  padding: var(--s-4) var(--s-8);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: background var(--dur-fast), transform var(--dur-fast) var(--ease-spring), box-shadow var(--dur-fast);
+}
+.btn-cta-primary:hover {
+  background: var(--color-green-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 255, 136, 0.3);
+}
+
+.btn-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  background: transparent;
+  color: var(--color-text-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  padding: var(--s-4) var(--s-8);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  border: 1px solid var(--color-border);
+  transition: border-color var(--dur-fast), color var(--dur-fast), transform var(--dur-fast) var(--ease-spring);
+}
+.btn-cta-secondary:hover {
+  border-color: rgba(0, 255, 136, 0.3);
+  color: var(--color-green);
+  transform: translateY(-2px);
+}
+
+.install-cmd {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--s-4) var(--s-8);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-green);
+  margin: var(--s-6) auto 0;
+  display: inline-block;
+  letter-spacing: 0.02em;
+}
+
+.install-cmd span { color: var(--color-text-3); }
+
+/* =========================================================================
+   LOADING / ERROR STATE (result page)
+   ========================================================================= */
+.result-loading, .result-error {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--s-6);
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--color-surface-3);
+  border-top-color: var(--color-green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.result-error { color: var(--color-red); }
+.result-error h2 { font-size: var(--text-xl); font-weight: 700; }
+.result-error p { color: var(--color-text-2); font-size: var(--text-sm); }

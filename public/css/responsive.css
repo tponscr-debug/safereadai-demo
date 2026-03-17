@@ -1,0 +1,26 @@
+/* =========================================================================
+   SafeReadAI — UTILITIES
+   ========================================================================= */
+.hidden { display: none !important; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* =========================================================================
+   RESPONSIVE
+   ========================================================================= */
+@media (max-width: 768px) {
+  .nav { padding: var(--s-4); }
+  .hero { padding: 100px var(--s-4) var(--s-12); }
+  .flow { padding: var(--s-16) var(--s-4); }
+  .threat-preview { padding: var(--s-8) var(--s-4); gap: var(--s-6); }
+  footer { padding: var(--s-6) var(--s-4); }
+  .result-wrap { padding: 100px var(--s-4) var(--s-12); }
+  .comparison-grid { grid-template-columns: 1fr; }
+  .result-cta { padding: var(--s-8) var(--s-6); }
+  .cta-title { font-size: var(--text-xl); }
+  .threat-score-card { flex-direction: column; align-items: flex-start; }
+  .pipeline-section { padding: var(--s-16) var(--s-4); }
+  .pipeline-step { padding: var(--s-4) var(--s-4); gap: var(--s-3); }
+  .quote-section { padding: 0 var(--s-4) var(--s-16); }
+  .quote-card { padding: var(--s-8) var(--s-6); }
+  .quote-card::before { font-size: 120px; top: -20px; left: 16px; }
+}
