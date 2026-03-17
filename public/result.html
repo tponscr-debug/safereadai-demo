@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Analyse de l'injection de prompt — SafeReadAI Demo." />
+  <title>Analyse de sécurité — SafeReadAI Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav" role="navigation">
+    <a href="/" class="nav-logo">
+      <span class="logo-bracket">[</span>SafeReadAI<span class="logo-bracket">]</span>
+    </a>
+    <span class="nav-badge">Rapport de menace</span>
+  </nav>
+
+  <!-- MAIN CONTENT — injected by result.js -->
+  <main id="result-root" class="result-wrap" role="main">
+
+    <!-- Loading state -->
+    <div id="result-loading" class="result-loading" role="status" aria-live="polite">
+      <div class="loading-spinner" aria-hidden="true"></div>
+      <p style="font-family:var(--font-mono); color:var(--color-text-2);">Chargement de l'analyse...</p>
+    </div>
+
+    <!-- Error state -->
+    <div id="result-error" class="result-error hidden" role="alert" aria-live="assertive">
+      <h2>Session introuvable</h2>
+      <p id="result-error-msg">La session a expiré ou le token est invalide.</p>
+      <a href="/" style="font-family:var(--font-mono); font-size:var(--text-sm); color:var(--color-green);">
+        ← Recommencer la démo
+      </a>
+    </div>
+
+    <!-- Result content — hidden until data loaded -->
+    <div id="result-content" class="hidden">
+
+      <!-- Header -->
+      <div class="result-header">
+        <div class="alert-badge" role="status">Injection détectée</div>
+        <h1 style="font-size:clamp(var(--text-2xl), 4vw, var(--text-3xl)); font-weight:800; letter-spacing:-0.04em; margin-bottom:var(--s-4);">
+          Voici ce que l'email<br />contenait vraiment
+        </h1>
+        <p style="color:var(--color-text-2); max-width:540px; margin:0 auto; line-height:1.7;">
+          Cet email ressemblait à une demande professionnelle ordinaire.
+          Mais il contenait une injection de prompt conçue pour compromettre ton agent IA.
+        </p>
+      </div>
+
+      <!-- Threat Score -->
+      <div class="threat-score-card" role="region" aria-label="Score de menace">
+        <div>
+          <div class="threat-score-label">Score de menace</div>
+          <div class="threat-score-value" id="threat-value">--<span>/100</span></div>
+          <div style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-red); margin-top:var(--s-1);" id="threat-type">—</div>
+        </div>
+        <div class="threat-bar-wrap">
+          <div class="threat-bar-label">
+            <span>SÛRE</span>
+            <span>CRITIQUE</span>
+          </div>
+          <div class="threat-bar" role="progressbar" aria-label="Niveau de menace">
+            <div class="threat-bar-fill" id="threat-bar-fill"></div>
+          </div>
+          <div style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-text-3); margin-top:var(--s-2);" id="threat-vector">—</div>
+        </div>
+      </div>
+
+      <!-- Email Display -->
+      <div class="email-card" role="region" aria-label="Email reçu avec injections surlignées">
+        <div class="email-card-header">
+          <span class="email-card-header-title">Email reçu (injection surlignée)</span>
+          <span style="font-family:var(--font-mono); font-size:10px; color:var(--color-red); background:var(--color-red-muted); border:1px solid rgba(255,51,85,0.2); padding:2px 8px; border-radius:var(--radius-full);">1 menace détectée</span>
+        </div>
+        <div class="email-card-body">
+          <div class="email-meta">
+            <div class="email-meta-row">
+              <span class="meta-key">De :</span>
+              <span id="email-sender">—</span>
+            </div>
+            <div class="email-meta-row">
+              <span class="meta-key">Objet :</span>
+              <span id="email-subject">—</span>
+            </div>
+          </div>
+          <div id="email-preview-text" style="white-space:pre-wrap; color:var(--color-text-2); margin-bottom:var(--s-4);"></div>
+          <div class="injection-highlight" id="injection-highlight">
+            <span class="injection-highlight-badge">⚡ Injection détectée</span>
+            <span id="injection-raw" style="word-break:break-all;"></span>
+          </div>
+          <div style="margin-top:var(--s-4); font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-text-3);">
+            Cordialement, Sophie Martin
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparison -->
+      <div style="margin-bottom:var(--s-4);">
+        <div class="section-label" aria-hidden="true">Comparaison</div>
+        <h2 style="font-size:var(--text-xl); font-weight:700; letter-spacing:-0.03em; margin-bottom:var(--s-6);">
+          Agent non protégé vs. SafeReadAI
+        </h2>
+      </div>
+      <div class="comparison-grid" role="region" aria-label="Comparaison agent compromis vs SafeReadAI">
+        <div class="comparison-panel danger">
+          <div class="comparison-panel-header">
+            <span>⚠</span> Agent non protégé
+          </div>
+          <div class="comparison-panel-body" id="compromised-response"></div>
+        </div>
+        <div class="comparison-panel safe">
+          <div class="comparison-panel-header">
+            <span>✓</span> Avec SafeReadAI
+          </div>
+          <div class="comparison-panel-body" id="safe-output"></div>
+        </div>
+      </div>
+
+      <!-- SafeReadAI Pipeline -->
+      <div class="pipeline-card" role="region" aria-label="Pipeline SafeReadAI étape par étape">
+        <div class="pipeline-card-header">
+          <span>⟶</span>
+          Pipeline SafeReadAI — Détection en temps réel
+        </div>
+        <div class="pipeline-steps" id="pipeline-steps">
+          <!-- Injected by result.js -->
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="result-cta" role="complementary" aria-label="Installer SafeReadAI">
+        <h2 class="cta-title">
+          Protège ton agent.<br />
+          <span style="color:var(--color-green);">En 30 secondes.</span>
+        </h2>
+        <p class="cta-desc">
+          SafeReadAI est un SDK open source qui s'installe en une ligne et bloque automatiquement
+          les injections de prompt dans tous tes canaux d'entrée.
+        </p>
+        <div class="cta-buttons">
+          <a
+            href="https://github.com/safereadai/safereadai"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-cta-secondary"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+            Voir sur GitHub
+          </a>
+          <a
+            href="https://www.npmjs.com/package/safereadai"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-cta-primary"
+          >
+            npm install safereadai →
+          </a>
+        </div>
+        <div class="install-cmd" aria-label="Commande d'installation">
+          <span>$</span> npm install safereadai
+        </div>
+        <p style="margin-top:var(--s-8); font-size:var(--text-xs); color:var(--color-text-3); font-family:var(--font-mono);" id="data-note"></p>
+      </div>
+
+    </div><!-- end result-content -->
+
+  </main>
+
+  <script src="js/result.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Email de démo envoyé — SafeReadAI injection de prompt demo." />
+  <title>Email envoyé — SafeReadAI Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav" role="navigation">
+    <a href="/" class="nav-logo">
+      <span class="logo-bracket">[</span>SafeReadAI<span class="logo-bracket">]</span>
+    </a>
+    <span class="nav-badge">Demo opt-in</span>
+  </nav>
+
+  <!-- CONFIRMATION CARD -->
+  <main class="confirm-wrap" role="main">
+    <div class="confirm-card">
+      <div class="confirm-icon" aria-hidden="true">✉️</div>
+
+      <h1 class="confirm-title">Email envoyé !</h1>
+
+      <p class="confirm-desc">
+        Vérifie ta boîte de réception dans les <strong style="color:var(--color-green)">2 prochaines minutes</strong>.
+        L'email contient une injection de prompt cachée — inoffensive, mais révélatrice.
+      </p>
+
+      <ul class="confirm-steps" role="list">
+        <li>
+          <span class="step-icon" aria-hidden="true">📧</span>
+          Ouvre l'email de "Sophie Martin" dans ta boîte
+        </li>
+        <li>
+          <span class="step-icon" aria-hidden="true">🔍</span>
+          Remarque que l'email ressemble à un email pro ordinaire
+        </li>
+        <li>
+          <span class="step-icon" aria-hidden="true">🔗</span>
+          Clique sur le lien en bas de l'email pour voir l'analyse
+        </li>
+        <li>
+          <span class="step-icon" aria-hidden="true">🛡️</span>
+          Découvre comment SafeReadAI aurait protégé ton agent
+        </li>
+      </ul>
+
+      <div class="data-deletion-note">
+        🗑️ <strong>Suppression des données :</strong> Ton adresse email est stockée en mémoire vive
+        uniquement et sera supprimée automatiquement dans moins de 24 heures.
+        Aucune donnée n'est persistée en base de données.
+      </div>
+
+      <!-- Direct link as fallback -->
+      <p id="direct-link-wrap" style="display:none; margin-top:var(--s-6); font-family:var(--font-mono); font-size:var(--text-xs); color:var(--color-text-3);">
+        Lien direct vers l'analyse :<br/>
+        <a id="direct-link" href="#" style="color:var(--color-green); word-break:break-all;"></a>
+      </p>
+
+      <a href="/" style="display:inline-block; margin-top:var(--s-6); font-family:var(--font-mono); font-size:var(--text-sm); color:var(--color-text-2); text-decoration:none; border-bottom:1px solid var(--color-border); padding-bottom:2px;">
+        ← Retour à l'accueil
+      </a>
+    </div>
+  </main>
+
+  <script>
+    // If token is in URL params, show direct link as fallback
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    if (token) {
+      const wrap = document.getElementById('direct-link-wrap');
+      const link = document.getElementById('direct-link');
+      const resultUrl = '/result.html?demo=' + encodeURIComponent(token);
+      link.href = resultUrl;
+      link.textContent = window.location.origin + resultUrl;
+      wrap.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
